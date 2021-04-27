@@ -1,0 +1,33 @@
+extends layout
+
+block content 
+  h1= title
+
+  p
+  form(method='get' action='/books/search')
+    label(for='search') Search 
+    input#search(name='search', type='text')
+    button Search 
+
+  p
+    a.button(href="/books/new") Create New Book
+
+  table
+    thead 
+      tr 
+        th Title 
+        th Author 
+        th Genre 
+        th Year 
+    tbody 
+      each book in books 
+        tr 
+          td 
+            a(href=`/books/${book.id}`)= book.title 
+            td= book.author 
+            td= book.genre 
+            td= book.year 
+  br 
+  -for (var i = 1; i <= totalPages ; i++) {
+    a(href=`/books/page/${i}` class="pagination") #{i} &nbsp
+  -} 
