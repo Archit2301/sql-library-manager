@@ -48,7 +48,7 @@ router.get('/books/search', asyncHandler(async(req,res,next) => {
       ]
    },
   });
-  res.render('index', {books: books.rows});
+  res.render('index', {books: books.rows, title: 'Books'});
 }));
 
 /* GET Home route should redirect to the 1st page route */
@@ -69,7 +69,7 @@ router.get('/books/page/:page', asyncHandler(async (req, res, next) => {
   totalBooks = await Book.count();
   totalPages = Math.ceil(totalBooks / 5);
   if (page > 0 && page <= totalPages) {    
-    res.render('index', { books, title: 'All books', totalPages });
+    res.render('index', { books, title: 'Books', totalPages });
   } else {
     const err = new Error("404 Not Found");
     err.status = 404;
@@ -80,7 +80,7 @@ router.get('/books/page/:page', asyncHandler(async (req, res, next) => {
 
 /* GET Create new book form */
 router.get('/books/new', asyncHandler(async (req, res) => {
-  res.render('new-book');
+  res.render('new-book', {title: 'New Book'});
 }));
 
 /* POST a new book to the database */
