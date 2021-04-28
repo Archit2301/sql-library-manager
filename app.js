@@ -1,3 +1,7 @@
+/*****************************************************
+TechDegree Project 8 - SQL Library Manager
+*****************************************************/
+
 const Sequelize = require('sequelize');
 
 var createError = require('http-errors');
@@ -24,11 +28,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// static files setup
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// async IIFE
 (async () => {
   try {
     await sequelize.sync({ force: true });
@@ -48,7 +55,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// error handler
+// global error handler
 app.use(function(err, req, res, next) {
   if ( err.status === 404 ) {
     res.locals.error = err;
@@ -59,13 +66,6 @@ app.use(function(err, req, res, next) {
     res.locals.error = err;
     res.render('error');
   }
-  // // set locals, only providing error in development
-  // res.locals.message = err.message;
-  // res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // // render the error page
-  // res.status(err.status || 500);
-  // res.render('error');
 });
 
 module.exports = app;

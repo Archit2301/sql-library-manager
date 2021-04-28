@@ -4,6 +4,10 @@ const Sequelize = require("sequelize");
 
 module.exports = (sequelize) => {
   class Book extends Sequelize.Model {} 
+  /**
+     * Book table initialized with required attributes.
+     * Validation added to title and author.
+  */
   Book.init({
     title: {
       type: Sequelize.STRING,

@@ -3,7 +3,10 @@ var router = express.Router();
 const Book = require('../models').Book;
 const { Op } = require ('Sequelize');
 
-/* Handler function to wrap each route. */
+/**
+   * Handler function for each route.
+   * Error is forwarded to the global handler in app.js.
+*/
 function asyncHandler(cb) {
   return async(req, res, next) => {
     try {
@@ -45,16 +48,15 @@ router.get('/books/search', asyncHandler(async(req,res,next) => {
       ]
    },
   });
-
   res.render('books', {books: books.rows});
 }));
 
-/* GET Home route should redirect to the /books route */
+/* GET Home route should redirect to the 1st page route */
 router.get('/', asyncHandler(async (req, res) =>  {
   res.redirect('/books/page/1');
 }));
 
-/* GET Books route shows the full list of books */
+/* GET Books route shows the list of books (5 books per page) */
 router.get('/books/page/:page', asyncHandler(async (req, res, next) => {
   const page = req.params.page;
   let totalPages;
@@ -76,7 +78,7 @@ router.get('/books/page/:page', asyncHandler(async (req, res, next) => {
   }  
 }));
 
-/* Create book form */
+/* GET Create new book form */
 router.get('/books/new', asyncHandler(async (req, res) => {
   res.render('new_book');
 }));
