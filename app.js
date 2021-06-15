@@ -1,7 +1,3 @@
-/*****************************************************
-TechDegree Project 8 - SQL Library Manager
-*****************************************************/
-
 const Sequelize = require('sequelize');
 
 var createError = require('http-errors');
